@@ -5,24 +5,18 @@ var transparent_color = Color(1.0, 1.0, 1.0, 0.7)
 var line_width = 1.0
 var width = 150.0
 
-var degrees = 50.0
+var degrees = 0.0
 var degrees_range = 40.0
 
-func _ready() -> void:
-	var first_parts = _print_degrees(50.0)
-	print(_get_points_on_line(50.0, first_parts))
-	for i in range(5):
-		var line_degrees = degrees + (i * 5.0)
-		var parts = _print_degrees(degrees + (i * 5.0))
-		print(_get_points_on_line(line_degrees, parts))
-
+@onready var hud = get_owner()
 
 func _process(_delta: float) -> void:
-	degrees += randf_range(0.1, 0.3)
-	queue_redraw()
+	if degrees != hud.y_rotation:
+		degrees = hud.y_rotation
+		queue_redraw()
 
-
-func _print_degrees(center_degrees: float) -> Array[float]:
+# Get the range of 10 degree increments around a center degree
+func degree_range(center_degrees: float) -> Array[float]:
 	var first_digit = fmod(center_degrees, 10.0)
 	var begin_degrees
 	var steps
@@ -37,7 +31,7 @@ func _print_degrees(center_degrees: float) -> Array[float]:
 		parts.append(begin_degrees + (i * 10.0))
 	return parts
 
-
+# Get the x-values of a line that starts from [-150,150]
 func _get_points_on_line(center_degrees: float, parts: Array[float]) -> Array[float]:
 	var points = []
 	for part in parts:
@@ -55,6 +49,6 @@ func _get_points_on_line(center_degrees: float, parts: Array[float]) -> Array[fl
 
 func _draw() -> void:
 	draw_line(Vector2(-width, 0), Vector2(width, 0), color, line_width, false)
-	var points = _get_points_on_line(degrees, _print_degrees(degrees))
+	var points = _get_points_on_line(degrees, degree_range(degrees))
 	for point in points:
-		draw_line(Vector2(point, 0.0), Vector2(point, -5.0), color, line_width, false)
+		draw_line(Vector2(point, 0.0), Vector2(point, 5.0), color, line_width, false)
