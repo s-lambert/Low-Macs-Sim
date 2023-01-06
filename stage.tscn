@@ -56,8 +56,10 @@ script = ExtResource("2_id40u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nqfk6")
 
-[node name="CameraPivot" type="Node3D" parent="Player"]
+[node name="CameraHorizontalPivot" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Camera" type="Camera3D" parent="Player/CameraPivot"]
+[node name="CameraVerticalPivot" type="Node3D" parent="Player/CameraHorizontalPivot"]
+
+[node name="Camera" type="Camera3D" parent="Player/CameraHorizontalPivot/CameraVerticalPivot"]
 current = true
