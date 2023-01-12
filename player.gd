@@ -1,10 +1,9 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED = 20.0
+const JUMP_VELOCITY = 20.0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera_horizontal_pivot: Node3D = $CameraHorizontalPivot
