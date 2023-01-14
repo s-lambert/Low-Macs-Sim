@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmi1th8hmfjrh"]
+[gd_scene load_steps=5 format=3 uid="uid://bmi1th8hmfjrh"]
 
 [ext_resource type="Script" path="res://horizontal_crosshair.gd" id="1_0oc16"]
 [ext_resource type="Script" path="res://hud.gd" id="1_ards1"]
 [ext_resource type="Script" path="res://crosshair.gd" id="1_r10cw"]
+[ext_resource type="Script" path="res://enemy_outlines.gd" id="4_466s5"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -14,7 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_ards1")
 
 [node name="CrosshairContainer" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -29,3 +30,6 @@ script = ExtResource("1_0oc16")
 
 [node name="Crosshair" type="Node2D" parent="CrosshairContainer"]
 script = ExtResource("1_r10cw")
+
+[node name="EnemyOutlines" type="Node2D" parent="."]
+script = ExtResource("4_466s5")

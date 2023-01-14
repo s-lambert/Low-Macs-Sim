@@ -106,11 +106,11 @@ shadow_mesh = SubResource("ArrayMesh_l1ee8")
 [sub_resource type="BoxShape3D" id="BoxShape3D_j11l1"]
 size = Vector3(4, 2, 8)
 
-[node name="Tank" type="CharacterBody3D"]
+[node name="Tank" type="CharacterBody3D" groups=["enemies"]]
 script = ExtResource("2_12v0s")
 
 [node name="Chasis" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
 mesh = SubResource("ArrayMesh_f6ct3")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_x4vl6")
@@ -129,9 +129,9 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_x4vl6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_j11l1")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
