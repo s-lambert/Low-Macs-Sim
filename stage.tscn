@@ -64,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
 
 [node name="CameraVerticalPivot" type="Node3D" parent="Player/CameraHorizontalPivot"]
 
-[node name="Camera" type="Camera3D" parent="Player/CameraHorizontalPivot/CameraVerticalPivot"]
+[node name="Camera" type="Camera3D" parent="Player/CameraHorizontalPivot/CameraVerticalPivot" groups=["camera"]]
 current = true
 
 [node name="Enemies" type="Node3D" parent="."]

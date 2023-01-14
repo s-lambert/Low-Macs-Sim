@@ -21,5 +21,5 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	for enemy in outlines:
 		var position_2d: Vector2 = outlines[enemy].position_2d
-		var rectangle_size = Vector2(50.0, 35.0) * (50.0 / outlines[enemy].distance_from_camera)
+		var rectangle_size = Vector2(40.0, 30.0) * ((40 / camera.fov * 100) / outlines[enemy].distance_from_camera)
 		draw_rect(Rect2(position_2d - (rectangle_size / 2), rectangle_size), Color.RED, false, 1.0)

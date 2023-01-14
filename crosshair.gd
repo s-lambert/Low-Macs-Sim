@@ -19,6 +19,7 @@ var state = States.NORMAL
 var is_animating = false
 var current_outer_radius = normal_outer_radius
 
+@onready var camera: Camera3D = get_tree().get_first_node_in_group("camera")
 
 func _draw() -> void:
 	draw_line(Vector2(-(zoom_line_offset), 0), Vector2(-(zoom_line_width + zoom_line_offset), 0), transparent_color, line_width, false)
@@ -39,9 +40,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseButton:
 		if state == States.NORMAL and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.is_pressed():
-			_resize_outer(zoomed_outer_radius, States.ZOOMED_IN)
+			_resize_outer(zoomed_outer_radius, 25.0, States.ZOOMED_IN)
 		elif state == States.ZOOMED_IN and event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.is_pressed():
-			_resize_outer(normal_outer_radius, States.NORMAL)
+			_resize_outer(normal_outer_radius, 75.0, States.NORMAL)
 
 
 func _draw_circle_arc(radius: float) -> void:
@@ -53,15 +54,20 @@ func _draw_circle_arc(radius: float) -> void:
 	draw_arc(center, radius, start_angle, end_angle, point_count, color, line_width, antialiased)
 
 
-func _resize_outer(radius: float, new_state: States) -> void:
+func _resize_outer(radius: float, fov: float, new_state: States) -> void:
 	is_animating = true
+	var easing = Tween.EASE_OUT if new_state == States.ZOOMED_IN else Tween.EASE_IN
 	var tween = create_tween()
 	tween.tween_property(self, "current_outer_radius", radius, 0.5)\
-		.from_current()\
 		.set_trans(Tween.TRANS_QUAD)\
-		.set_ease(Tween.EASE_OUT)
+		.set_ease(easing)
 	tween.tween_callback(func():
 		state = new_state
 		is_animating = false
 	)
 	tween.play()
+	var camera_tween = create_tween()
+	camera_tween.tween_property(camera, "fov", fov, 0.5)\
+		.set_trans(Tween.TRANS_QUAD)\
+		.set_ease(easing)
+	camera_tween.play()
